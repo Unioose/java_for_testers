@@ -19,4 +19,49 @@ public class TriangleTests {
         Assertions.assertEquals(84, new Triangle(13.0, 14.0, 15.0).area());
         Assertions.assertEquals(360, new Triangle(36.0, 25.0, 29).area());
     }
+
+    @Test
+    void cannotCreateTriangleWithNegativeSide() {
+        try {
+            new Triangle(-5.0, 3.0, 2.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            //Ок
+        }
+        try {
+            new Triangle(5.0, -3.0, 2.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            //Ок
+        }
+        try {
+            new Triangle(5.0, 3.0, -2.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            //Ок
+        }
+        try {
+            new Triangle(-5.0, -3.0, -2.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            //Ок
+        }
+    }
+
+    @Test
+    void checkTriangleInequality()
+    {
+        try{
+            new Triangle(99.0, 3.0,5.0).inequality();
+            Assertions.fail();
+        }catch (IllegalArgumentException exception){
+            //Ок
+        }
+        try{
+            new Triangle(5.0, 1.0,4.0).inequality();
+            Assertions.fail();
+        }catch (IllegalArgumentException exception){
+            //Ок
+        }
+    }
 }
