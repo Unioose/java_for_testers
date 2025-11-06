@@ -3,15 +3,12 @@ package ru.uni.geometry.figures;
 import java.util.Objects;
 
 public record Triangle(double sideA, double sideB, double sideC) {
-    //Проверка на отрицательные стороны треугольника
+    //Проверка на отрицательные стороны треугольника и неравенство треугольников
     public Triangle{
         if (sideA<0 || sideB<0 || sideC<0)
         {
             throw new IllegalArgumentException("Triange side should be non-negative");
         }
-    }
-
-    public void inequality(){
         if (sideA>=sideB+sideC || sideB>=sideA+sideC || sideC>=sideA+sideB)
         {
             throw new IllegalArgumentException("These sides cannot form a triangle");

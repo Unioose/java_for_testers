@@ -52,13 +52,13 @@ public class TriangleTests {
     void checkTriangleInequality()
     {
         try{
-            new Triangle(99.0, 3.0,5.0).inequality();
+            new Triangle(99.0, 3.0,5.0);
             Assertions.fail();
         }catch (IllegalArgumentException exception){
             //Ок
         }
         try{
-            new Triangle(5.0, 1.0,4.0).inequality();
+            new Triangle(5.0, 1.0,4.0);
             Assertions.fail();
         }catch (IllegalArgumentException exception){
             //Ок
@@ -67,11 +67,14 @@ public class TriangleTests {
 
     @Test
     void testEquality() {
-        var t1 = new Triangle(5.0,4.0, 3.0);
-        var t2 = new Triangle(4.0,3.0, 5.0);
-        var t3 = new Triangle(3.0,5.0, 4.0);
-        Assertions.assertEquals(t1,t2);
-        Assertions.assertEquals(t1,t3);
-        Assertions.assertEquals(t2,t3);
+        var a = 2;
+        var b = 3;
+        var c = 4;
+        var triangle1 = new Triangle(a, b, c);
+        var triangle2 = new Triangle(b, c, a);
+        var triangle3 = new Triangle(c, a, b);
+        Assertions.assertEquals(triangle1,triangle2);
+        Assertions.assertEquals(triangle1,triangle3);
+        Assertions.assertEquals(triangle2,triangle3);
     }
 }
