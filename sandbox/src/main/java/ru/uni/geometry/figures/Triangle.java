@@ -1,5 +1,6 @@
 package ru.uni.geometry.figures;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public record Triangle(double sideA, double sideB, double sideC) {
@@ -32,9 +33,13 @@ public record Triangle(double sideA, double sideB, double sideC) {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Triangle triangle = (Triangle) o;
-        return (Double.compare(sideA, triangle.sideA) == 0 && Double.compare(sideB, triangle.sideB) == 0 && Double.compare(sideC, triangle.sideC) == 0)
-                || (Double.compare(sideB, triangle.sideA) == 0 && Double.compare(sideC, triangle.sideB) == 0 && Double.compare(sideA, triangle.sideC) == 0)
-                || (Double.compare(sideC, triangle.sideA) == 0 && Double.compare(sideA, triangle.sideB) == 0 && Double.compare(sideB, triangle.sideC) == 0);
+        double [] arrT1 = {sideA, sideB, sideC};
+        double [] arrT2 = {triangle.sideA, triangle.sideB, triangle.sideC};
+        Arrays.sort(arrT1);
+        Arrays.sort(arrT2);
+
+
+        return (arrT1[0]==arrT2[0]&&arrT1[1]==arrT2[1]&&arrT1[2]==arrT2[2]);
     }
 
     @Override
