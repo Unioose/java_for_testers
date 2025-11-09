@@ -1,7 +1,6 @@
 package manager;
 
 import model.ContactData;
-import model.GroupData;
 import org.openqa.selenium.By;
 
 public class ContactHelper extends HelperBase{
@@ -12,8 +11,16 @@ public class ContactHelper extends HelperBase{
     public void createContact(ContactData contact) {
         initContactCreation();
         fillContactForm(contact);
-        //submitContactCreation();
-       // returnToContactPage();
+        submitContactCreation();
+        returnToContactPage();
+    }
+
+    private void returnToContactPage() {
+        click(By.linkText("home page"));
+    }
+
+    private void submitContactCreation() {
+        click(By.name("submit"));
     }
 
     private void fillContactForm(ContactData contact) {
