@@ -15,6 +15,27 @@ public class ContactHelper extends HelperBase{
         returnToContactPage();
     }
 
+    public void removeContact() {
+        openContactPage();
+        selectContact();
+        removeSeletedContact();
+        returnToContactPage();
+    }
+
+    private void removeSeletedContact() {
+        click(By.name("delete"));
+    }
+
+    private void selectContact() {
+        click(By.name("selected[]"));
+    }
+
+    private void openContactPage() {
+        if (!manager.isElementPresent(By.name("Send e-Mail"))) {
+            click(By.linkText("home"));
+        }
+    }
+
     private void returnToContactPage() {
         click(By.linkText("home page"));
     }
@@ -34,5 +55,10 @@ public class ContactHelper extends HelperBase{
 
     private void initContactCreation() {
         click(By.linkText("add new"));
+    }
+
+    public boolean isContactPresent() {
+        openContactPage();
+        return manager.isElementPresent(By.name("selected[]"));
     }
 }
