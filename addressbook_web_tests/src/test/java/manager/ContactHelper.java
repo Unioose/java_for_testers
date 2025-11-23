@@ -3,6 +3,9 @@ package manager;
 import model.ContactData;
 import org.openqa.selenium.By;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactHelper extends HelperBase{
     public  ContactHelper(ApplicationManager manager) {
         super(manager);
@@ -15,9 +18,9 @@ public class ContactHelper extends HelperBase{
         returnToContactPage();
     }
 
-    public void removeContact() {
+    public void removeContact(ContactData contact) {
         openContactPage();
-        selectContact();
+        selectContact(contact);
         removeSeletedContacts();
         returnToContactPage();
     }
@@ -26,8 +29,8 @@ public class ContactHelper extends HelperBase{
         click(By.name("delete"));
     }
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(ContactData contact) {
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
     private void openContactPage() {
@@ -78,5 +81,36 @@ public class ContactHelper extends HelperBase{
         for (var checkbox: checkboxes){
             checkbox.click();
         }
+    }
+
+    public List<ContactData> getList() {
+        openContactPage();
+        var contacts = new ArrayList<ContactData>();
+        var tds = manager.driver.findElements(By.name("entry"));
+        for (var cells: tds){
+            var td = cells.findElements(By.tagName("td"));
+            var FirstName = td.get(2).getText();
+            var LastName = td.get(1).getText();
+            var checkbox = cells.findElement(By.name("selected[]"));
+            var id = checkbox.getAttribute("value");
+            contacts.add(new ContactData().withId(id).withFirstName(FirstName).withLastName(LastName));
+        }
+        return contacts;
+    }
+
+    public void modifyContact(ContactData contact, ContactData modifiedContact) {
+        openContactPage();
+        initContactModification(contact);
+        fillContactForm(modifiedContact);
+        submitContactModification();
+        returnToContactPage();
+    }
+
+    private void submitContactModification() {
+        click(By.name("update"));
+    }
+
+    private void initContactModification(ContactData contact) {
+        click(By.cssSelector(String.format("a[href='edit.php?id=%s']", contact.id())));
     }
 }

@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-api/4.38.0/956104b9f0535454c42164ec62a6b8f5092860c2/selenium-api-4.38.0.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-api/4.38.0/1c56e06245852708be17c316a16ec7e002080cca/selenium-api-4.38.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
