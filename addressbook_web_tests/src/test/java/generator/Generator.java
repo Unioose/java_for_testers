@@ -2,13 +2,17 @@ package generator;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import common.CommonFunctions;
+import model.ContactData;
 import model.GroupData;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.SerializationFeature;
 import tools.jackson.databind.json.JsonMapper;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,14 +68,33 @@ public class Generator {
     }
 
     private Object generateContacts() {
-        return null;
+
+        var result = new ArrayList<ContactData>();
+        for (int i = 0; i < 5; i++) {
+            result.add(new ContactData()
+                    .withFirstName(CommonFunctions.randomString(i * 10))
+                    .withLastName(CommonFunctions.randomString(i * 10))
+                    .withAddress(CommonFunctions.randomString(i * 10))
+                    .withEmail(CommonFunctions.randomString(i * 10) + "@example.com", CommonFunctions.randomString(i * 10) + "@example.com", CommonFunctions.randomString(i * 10) + "@example.com"));
+        }
+        return result;
     }
 
     private void save(Object data) throws IOException {
         if("json".equals(format))
         {
             ObjectMapper mapper = JsonMapper.builder().enable(SerializationFeature.INDENT_OUTPUT).build();
-            mapper.writeValue(new File(output), data);
+            var json = mapper.writeValueAsString( data);
+
+           try(var writer = new FileWriter(output)){
+            writer.write(json);}
+        } else if ("yaml".equals(format)){
+            var mapper = new YAMLMapper();
+            mapper.writeValue(new FileWriter(output), data);
+        }
+        else if ("xml".equals(format)){
+            var mapper = new XmlMapper();
+            mapper.writeValue(new FileWriter(output), data);
         }
         else {
             throw new IllegalArgumentException("Неизвестный формат "+format);
