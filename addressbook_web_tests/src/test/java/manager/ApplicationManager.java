@@ -19,6 +19,8 @@ public class ApplicationManager {
 
     private  ContactHelper contact;
 
+    private  JdbcHelper jdbc;
+
     private Properties properties;
 
     public void init(String browser, Properties properties) {
@@ -67,6 +69,13 @@ public class ApplicationManager {
             return false;
         }
 
+    }
+
+    public JdbcHelper jdbc(){
+        if(jdbc==null){
+            jdbc = new JdbcHelper(this);
+        }
+        return jdbc;
     }
 
 }

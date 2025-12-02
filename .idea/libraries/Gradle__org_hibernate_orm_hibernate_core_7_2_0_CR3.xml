@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: org.hibernate.orm:hibernate-core:7.2.0.CR3" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.hibernate.orm" artifactId="hibernate-core" version="7.2.0.CR3" baseVersion="7.2.0.CR3" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate.orm/hibernate-core/7.2.0.CR3/d39c056ebf5fade15ea96bb0ac17e9e89bbfe98e/hibernate-core-7.2.0.CR3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

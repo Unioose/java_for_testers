@@ -19,6 +19,8 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2")
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.18.1'
     implementation 'com.fasterxml.woodstox:woodstox-core:6.5.0'
+    implementation 'com.mysql:mysql-connector-j:9.5.0'
+    implementation 'org.hibernate.orm:hibernate-core:7.2.0.CR3'
 }
 
 test {
