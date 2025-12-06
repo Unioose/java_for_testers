@@ -132,4 +132,37 @@ public class ContactHelper extends HelperBase{
     private void initContactModification(ContactData contact) {
         click(By.cssSelector(String.format("a[href='edit.php?id=%s']", contact.id())));
     }
+
+    public void addInGroup(ContactData contact, GroupData group) {
+        openContactPage();
+        selectContact(contact);
+        selectGroupInConctactPage(group);
+        submitContactAddToGroup();
+        openContactInGroupPage(group);
+        
+    }
+
+    private void openContactInGroupPage(GroupData group) {
+        click(By.linkText(String.format("group page \"%s\"", group.name())));
+    }
+
+    private void submitContactAddToGroup() {
+        click(By.name("add"));
+    }
+
+    private void selectGroupInConctactPage(GroupData group) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
+    }
+
+    public void RemoveFromGroup(ContactData contact, GroupData group) {
+        openContactPage();
+        selectGroupInConctactPage(group);
+        selectContact(contact);
+        removeSelectContactFromGroup();
+        openContactInGroupPage(group);
+    }
+
+    private void removeSelectContactFromGroup() {
+        click(By.name("remove"));
+    }
 }

@@ -10,6 +10,7 @@ import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HibernateHelper extends  HelperBase{
@@ -110,6 +111,17 @@ public class HibernateHelper extends  HelperBase{
         return sessionFactory.fromSession(session -> {
             return session.createQuery("select count (*) from ContactRecord",Long.class).getSingleResult();
         });
+    }
+
+    public List<ContactData> getContactsNotInGroup(List<ContactData> data) {
+            // Получаем все контакты
+            List<ContactData> allContacts = getContactList();
+
+            List<ContactData> result = new ArrayList<>(allContacts);
+            result.removeAll(data);
+
+            //Возвращаем контакты которые не входят в выбранную группу
+            return result;
     }
 
 }
