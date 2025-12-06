@@ -135,6 +135,8 @@ public class ContactHelper extends HelperBase{
 
     public void addInGroup(ContactData contact, GroupData group) {
         openContactPage();
+        //Добавлена на случай если запускается несколько тестов и тесты остановились на какой-то определенной группе
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue("");
         selectContact(contact);
         selectGroupInConctactPage(group);
         submitContactAddToGroup();
@@ -151,15 +153,19 @@ public class ContactHelper extends HelperBase{
     }
 
     private void selectGroupInConctactPage(GroupData group) {
-        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
     }
 
     public void RemoveFromGroup(ContactData contact, GroupData group) {
         openContactPage();
-        selectGroupInConctactPage(group);
+        selectContactPageInGroup(group);
         selectContact(contact);
         removeSelectContactFromGroup();
         openContactInGroupPage(group);
+    }
+
+    private void selectContactPageInGroup(GroupData group) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
     }
 
     private void removeSelectContactFromGroup() {
