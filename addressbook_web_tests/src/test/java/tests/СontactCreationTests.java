@@ -1,5 +1,6 @@
 package tests;
 
+import model.GroupData;
 import tools.jackson.core.type.TypeReference;
 //import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -61,6 +62,13 @@ public class СontactCreationTests extends TestBase {
         return result;
     }
 
+    public static List<ContactData> singleRandomContact() {
+        return List.of(new ContactData()
+                .withFirstName(CommonFunctions.randomString(10))
+                .withLastName(CommonFunctions.randomString(20))
+                .withAddress(CommonFunctions.randomString(30)));
+    }
+
     public static ArrayList<ContactData> negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of(
                 new ContactData()
@@ -72,21 +80,18 @@ public class СontactCreationTests extends TestBase {
     }
 
     @ParameterizedTest
-    @MethodSource("contactProvider")
-    public void canCreateMultipleContacts(ContactData contact) {
-        //Получение списка до попытки добавления невалидного контакта
-        var oldContact = app.contact().getList();
+    @MethodSource("singleRandomContact")
+    public void canCreateContact(ContactData contact) {
+        var oldContact = app.hbm().getContactList();
         app.contact().createContact(contact);
-        //Получение списка после попытки добавления невалидного контакта
-        var newContact = app.contact().getList();
+        var newContact = app.hbm().getContactList();
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
-        newContact.sort(compareById);
+
+        var maxId = newContact.get(newContact.size() - 1).id();
         var expectedList = new ArrayList<>(oldContact);
-        expectedList.add(contact.withId(newContact.get(newContact.size() - 1).id())
-                .withAddress("")
-                .withEmail("", "", ""));
+        expectedList.add(contact.withId(maxId));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContact, expectedList);
     }
@@ -95,16 +100,17 @@ public class СontactCreationTests extends TestBase {
     @MethodSource("negativeContactProvider")
     public void canNotCreateMultipleContacts(ContactData contact) {
         //Получение списка до попытки добавления невалидного контакта
-        var oldContact = app.contact().getList();
+        var oldContact = app.hbm().getContactList();
         app.contact().createContact(contact);
         //Получение списка после попытки добавления невалидного контакта
-        var newContact = app.contact().getList();
+        var newContact = app.hbm().getContactList();
         //Сравнение двух списков
         Assertions.assertEquals(newContact, oldContact);
     }
 
+
     @Test
-    void canCreateContact()
+    void canCreateContactWithPhoto()
     {
         var contact = new ContactData()
                 .withFirstName(CommonFunctions.randomString(10))
@@ -112,4 +118,24 @@ public class СontactCreationTests extends TestBase {
                 .withPhoto(randomFile("src/test/resources/images"));
         app.contact().createContact(contact);
     }
+
+
+    @Test
+    void canCreateContactInGroup()
+    {
+        var contact = new ContactData()
+                .withFirstName(CommonFunctions.randomString(10))
+                .withLastName(CommonFunctions.randomString(10));
+        //Создание группы через БД
+        if (app.hbm().getGroupCount() == 0)
+        {
+            app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
+        }
+        var group = app.hbm().getGroupList().get(0);
+        var OldRelated = app.hbm().getContactsInGroup(group);
+        app.contact().createContact(contact, group);
+        var NewRelated = app.hbm().getContactsInGroup(group);
+        Assertions.assertEquals(OldRelated.size() +1 , NewRelated.size());
+    }
+
 }
