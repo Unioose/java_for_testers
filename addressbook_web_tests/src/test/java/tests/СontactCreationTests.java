@@ -75,7 +75,7 @@ public class СontactCreationTests extends TestBase {
                         .withFirstName("contact name'")
                         .withLastName("")
                         .withAddress("")
-                        .withEmail("", "", "")));
+                        .withEmail("")));
         return result;
     }
 

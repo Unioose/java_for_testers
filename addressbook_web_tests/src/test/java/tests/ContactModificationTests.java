@@ -16,7 +16,7 @@ public class ContactModificationTests extends TestBase{
     void canModifyContact(){
         if (app.hbm().getContactCount() == 0)
         {
-            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", ""));
+            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", "", "", "", "", ""));
         }
         var oldContact = app.hbm().getContactList();
         var rnd = new Random();
@@ -40,7 +40,7 @@ public class ContactModificationTests extends TestBase{
         //Проверка что в БД есть контакты
         if (app.hbm().getContactCount() == 0)
         {
-            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", ""));
+            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", "", "", "", "", ""));
         }
         //Проверка что в БД есть группы
         if (app.hbm().getGroupCount() == 0)
@@ -61,7 +61,7 @@ public class ContactModificationTests extends TestBase{
         if (ContactListNotInGroup.isEmpty())
         {
             //Создаем новый контакт и берем его в качестве добавления к группе
-            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", ""));
+            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", "", "", "", "", ""));
             var  newContactList = app.hbm().getContactList();
             contact =  newContactList.get(newContactList.size() - 1);
         }
@@ -94,7 +94,7 @@ public class ContactModificationTests extends TestBase{
         //Проверка что в БД есть контакты
         if (app.hbm().getContactCount() == 0)
         {
-            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", ""));
+            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", "", "", "", "", ""));
         }
         //Проверка что в БД есть группы
         if (app.hbm().getGroupCount() == 0)

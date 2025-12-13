@@ -90,7 +90,7 @@ public class Generator {
                     .withFirstName(CommonFunctions.randomString(10))
                     .withLastName(CommonFunctions.randomString(10))
                     .withAddress(CommonFunctions.randomString(10))
-                    .withEmail(CommonFunctions.randomString(10) + "@example.com", CommonFunctions.randomString(10) + "@example.com", CommonFunctions.randomString(10) + "@example.com"));
+                    .withEmail(CommonFunctions.randomString(10) + "@example.com"));
         //Альт.вариант генерации
 //        var result = new ArrayList<ContactData>();
 //        for (int i = 0; i < 5; i++) {
