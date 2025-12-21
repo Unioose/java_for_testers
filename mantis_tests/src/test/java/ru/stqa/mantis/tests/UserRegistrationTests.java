@@ -12,11 +12,12 @@ public class UserRegistrationTests extends TestBase{
     void canRegisterUser(){
         //Добавляем почту в James
         var user = CommonFunctions.randomString(8);
-        try {
-            app.jamesCli().addUser(String.format("%s@localhost", user),"password");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        app.jamesApi().addUser(String.format("%s@localhost", user),"password");
+//        try {
+//            app.jamesCli().addUser(String.format("%s@localhost", user),"password");
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         //Заполняем форму регистрации и отправляем письмо
         app.session().registration(user);
         //Извлекаем ссылку из письма
@@ -39,9 +40,5 @@ public class UserRegistrationTests extends TestBase{
         //Авторизация и проверка что авторизация прошла успешно
         app.http().login(user, newPassword);
         app.http().isLoggedIn();
-
-
-
-
     }
 }
