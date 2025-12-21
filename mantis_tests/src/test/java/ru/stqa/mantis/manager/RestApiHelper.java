@@ -4,10 +4,11 @@ import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
 import io.swagger.client.Configuration;
 import io.swagger.client.api.IssuesApi;
+import io.swagger.client.api.UserApi;
 import io.swagger.client.auth.ApiKeyAuth;
-import io.swagger.client.model.Identifier;
-import io.swagger.client.model.Issue;
+import io.swagger.client.model.*;
 import ru.stqa.mantis.model.IssueData;
+import ru.stqa.mantis.model.UserData;
 
 public class RestApiHelper extends HelperBase{
 
@@ -33,6 +34,27 @@ public class RestApiHelper extends HelperBase{
         IssuesApi apiInstance = new IssuesApi();
         try {
             apiInstance.issueAdd(issue);
+        } catch (ApiException e) {
+            new RuntimeException(e);
+        }
+    }
+
+    public void addUser(UserData user) {
+        User body = new User();
+        body.setUsername(user.username());
+        body.setPassword(user.password());
+        body.setRealName(user.realName());
+        body.setEmail(user.email());
+        var accessLvl = new AccessLevel();
+        accessLvl.setName(user.accessLevel());
+        body.accessLevel(accessLvl);
+        body.enabled(user.enabled());
+        body._protected(user._protected());
+
+        UserApi apiInstance = new UserApi();// User | The user to add.
+        try {
+            UserAddResponse result = apiInstance.userAdd(body);
+            System.out.println(result);
         } catch (ApiException e) {
             new RuntimeException(e);
         }
