@@ -48,9 +48,10 @@ public class ContactHelper extends HelperBase{
     }
 
     private void openContactPage() {
-        if (!manager.isElementPresent(By.name("Send e-Mail"))) {
-            click(By.linkText("home"));
-        }
+        click(By.linkText("home"));
+//        if (!manager.isElementPresent(By.name("Send e-Mail"))) {
+//            click(By.linkText("home"));
+//        }
     }
 
     private void returnToContactPage() {
