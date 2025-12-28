@@ -17,12 +17,10 @@ public class ContactRemovalTests extends TestBase {
 //            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", ""));
 //        }
         //Создание контакта через БД
-        Allure.step("Checking precondition", step->{
-            if (app.hbm().getContactCount() == 0)
-            {
-                app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", "", "", "", "", ""));
-            }
-        });
+        if (app.hbm().getContactCount() == 0)
+        {
+         app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", "", "", "", "", ""));
+        }
         var oldContact = app.hbm().getContactList();
         var rnd = new Random();
         var index = rnd.nextInt(oldContact.size());
