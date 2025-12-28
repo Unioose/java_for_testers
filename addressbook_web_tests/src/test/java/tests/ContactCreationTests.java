@@ -3,7 +3,6 @@ package tests;
 import model.GroupData;
 import tools.jackson.core.type.TypeReference;
 //import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import common.CommonFunctions;
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
@@ -12,7 +11,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import tools.jackson.databind.ObjectMapper;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class СontactCreationTests extends TestBase {
+public class ContactCreationTests extends TestBase {
 
     public static List<ContactData> contactProvider() throws IOException {
         var result = new ArrayList<ContactData>();
