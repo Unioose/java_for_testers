@@ -34,7 +34,7 @@ public class ContactModificationTests extends TestBase{
         Assertions.assertEquals(newContact,expectedList);
     }
 
-    @Test
+   @Test
     void canAddContactInGroup(){
         var contact = new ContactData();
         //Проверка что в БД есть контакты

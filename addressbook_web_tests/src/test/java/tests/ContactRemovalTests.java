@@ -28,9 +28,8 @@ public class ContactRemovalTests extends TestBase {
         var expectedList = new ArrayList<>(oldContact);
         expectedList.remove(index);
         Assertions.assertEquals(newContact,expectedList);
-
-
-
+        //На случай если
+        app.groups().removeAllGroups();
     }
 
     @Test
@@ -41,6 +40,7 @@ public class ContactRemovalTests extends TestBase {
         }
         app.contact().removeAllContact();
         Assertions.assertEquals(0, app.hbm().getContactCount());
+        app.groups().removeAllGroups();
 
     }
 

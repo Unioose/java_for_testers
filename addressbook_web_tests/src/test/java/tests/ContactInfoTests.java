@@ -1,5 +1,6 @@
 package tests;
 
+import model.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +14,11 @@ public class ContactInfoTests extends TestBase{
 
     @Test
     void testPhones(){
+        //Проверка что в БД есть контакты
+        if (app.hbm().getContactCount() == 0)
+        {
+            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", "", "", "", "", ""));
+        }
         var contacts = app.hbm().getContactList();
         var expected = contacts.stream().collect(Collectors.toMap(contact -> contact.id(), contact ->
                 Stream.of(contact.home(), contact.mobile(), contact.secondary(), contact.work())
@@ -25,6 +31,11 @@ public class ContactInfoTests extends TestBase{
 
     @Test
     void testAddress(){
+        //Проверка что в БД есть контакты
+        if (app.hbm().getContactCount() == 0)
+        {
+            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", "", "", "", "", ""));
+        }
         var contacts = app.hbm().getContactList();
         var expected = contacts.stream().collect(Collectors.toMap(contact -> contact.id(), contact ->
                 Stream.of(contact.address())
@@ -38,6 +49,11 @@ public class ContactInfoTests extends TestBase{
 
     @Test
     void testEmail(){
+        //Проверка что в БД есть контакты
+        if (app.hbm().getContactCount() == 0)
+        {
+            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", "", "", "", "", ""));
+        }
         var contacts = app.hbm().getContactList();
         var expected = contacts.stream().collect(Collectors.toMap(contact -> contact.id(), contact ->
                 Stream.of(contact.email(), contact.email2(), contact.email3())
@@ -51,6 +67,11 @@ public class ContactInfoTests extends TestBase{
     @Test
     void contactDataMainPage()
     {
+        //Проверка что в БД есть контакты
+        if (app.hbm().getContactCount() == 0)
+        {
+            app.contact().createContact(new ContactData("", "TestName", "LastName", "Test Adress 123", "text@example.com","text2@example.com","text3@example.com", "", "", "", "", ""));
+        }
         var contacts = app.hbm().getContactList();
         var rnd = new Random();
         var index = rnd.nextInt(contacts.size());
